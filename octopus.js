@@ -1,7 +1,10 @@
-(function () {
+window.addEventListener("load", function(e){
+
     //collect elements
     //proxy this for access hooks?
     const stat = { playing: 0, current: 0 };
+
+
 
     const handler_stat = {
         get: function(target, propKey) {
@@ -15,6 +18,8 @@
             console.log('set ' + propKey);
             console.log(`SET: target: ${target} - propKey: ${propKey} - value: ${value}`);
             Reflect.set(target, propKey, value);
+            //vid.currentTime = newRuntime;
+            //vid.currentTime = proxy_stat.current;
         }
     };
     //creating a proxy of stat to intercept requests for properties
@@ -24,12 +29,24 @@
     const playBtn = document.querySelector('.octopus_btn .btnPlayPause');
     const timeline = document.querySelector('.octopus_timeline');
     const progress = document.querySelector('.octopus_progress');
+    const duration = document.querySelector('.octopus_duration');
 
     //event listeners
     vid.addEventListener('playing', (e) => { proxy_stat.playing = 1; });
     vid.addEventListener('pause', (e) => { proxy_stat.playing = 0; });
+
+
     playBtn.addEventListener('click', playVid);
     timeline.addEventListener('click', track);
+
+    //convert video duration in seconds 'total' to minutes and seconds, add to UI
+    function convertToMinutes(total){
+        let minutes = Math.floor(total / 60);
+        let seconds = total - minutes * 60;
+        return `${minutes}:${Math.floor(seconds)}`;
+    }
+
+    duration.textContent = convertToMinutes(vid.duration);
 
     //returns the percentage difference between 'num1' and 'num2'
     function getPercent(num1, num2) {
@@ -59,6 +76,7 @@
         console.log('runtime: ' + newRuntime);
         //jump to new location in video
         vid.currentTime = newRuntime;
+        //proxy_stat.current = newRuntime;
     }
 
     function playVid() {
@@ -77,4 +95,4 @@
         }
         requestAnimationFrame(render);
     }
-}());
+});
