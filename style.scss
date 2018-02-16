@@ -1,0 +1,20 @@
+html{
+    height:100%;
+}
+
+//Center video in browser window
+body{
+    margin: 0;
+    padding: 0;   
+    display: flex;  
+    justify-content: center; 
+    align-items: center; 
+    height: 100%;
+}
+
+//Maintain 16:9 aspect ratio
+.octopusVideo{
+    width: 76vw;
+    height: calc(76vw * 0.5625);
+    display:flex;
+}

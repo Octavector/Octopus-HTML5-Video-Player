@@ -1,0 +1,18 @@
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.octopusVideo {
+  width: 76vw;
+  height: calc(76vw * 0.5625);
+  display: flex;
+}
