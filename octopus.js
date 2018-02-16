@@ -3,6 +3,15 @@
     //proxy this for access hooks?
     const stat = { playing: 0, current: 0 };
 
+    const handler_stat = {
+        get(target, propKey, receiver) {
+            console.log('get ' + propKey);
+        }
+    };
+    
+    //creating a proxy of stat to intercept requests for properties
+    const proxy_stat = new Proxy(stat, handler_stat);
+
     const vid = document.querySelector('.octopus_video video');
     const playBtn = document.querySelector('.octopus_btn .btnPlayPause');
     const timeline = document.querySelector('.octopus_timeline');
@@ -51,6 +60,7 @@
     //requestAnimationFrame for animation rendering of progress bar
     function render() {
         if (stat.playing === 1) {
+            stat.current = vid.currentTime;
             console.log(Math.trunc(vid.currentTime));
             progress.style.width = `${getPercent(vid.currentTime, vid.duration)}%`
         }
