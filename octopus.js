@@ -1,5 +1,9 @@
 window.addEventListener("load", function(e){
 
+    //TODO
+    // - Update currenttime when timeline is clicked
+    // - padstart and padend to time formatting
+
     //collect elements
     //proxy this for access hooks?
     const stat = { playing: 0, current: 0 };
@@ -29,6 +33,7 @@ window.addEventListener("load", function(e){
     const playBtn = document.querySelector('.octopus_btn .btnPlayPause');
     const timeline = document.querySelector('.octopus_timeline');
     const progress = document.querySelector('.octopus_progress');
+    const current = document.querySelector('.octopus_current');
     const duration = document.querySelector('.octopus_duration');
 
     //event listeners
@@ -42,8 +47,11 @@ window.addEventListener("load", function(e){
     //convert video duration in seconds 'total' to minutes and seconds, add to UI
     function convertToMinutes(total){
         let minutes = Math.floor(total / 60);
-        let seconds = total - minutes * 60;
-        return `${minutes}:${Math.floor(seconds)}`;
+        let seconds = Math.floor(total - minutes * 60);
+
+        //.padStart(2, "0")
+
+        return `${minutes}:${seconds.toString().padStart(2, "0")}`;
     }
 
     duration.textContent = convertToMinutes(vid.duration);
@@ -90,6 +98,7 @@ window.addEventListener("load", function(e){
     function render() {
         if (proxy_stat.playing === 1) {
             proxy_stat.current = vid.currentTime;
+            current.textContent = convertToMinutes(vid.currentTime);
             //console.log(Math.trunc(vid.currentTime));
             progress.style.width = `${getPercent(vid.currentTime, vid.duration)}%`
         }
