@@ -9,10 +9,34 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+  background: linear-gradient(45deg, #000000 0%, #003249 50%, #0a2b3f 51%, #00262d 100%);
 }
 
-.octopusVideo {
-  width: 76vw;
-  height: calc(76vw * 0.5625);
+.octopus_video {
+  width: 90vw;
+  height: calc(90vw * 0.5625);
   display: flex;
+  border: 1px solid #e50000;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.octopus_controls {
+  background: yellow;
+  display: flex;
+  height: 4rem;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.octopus_controls .octopus_timeline {
+  background: red;
+}
+
+@media (min-width: 992px) {
+  .octopus_video {
+    width: 60vw;
+    height: calc(60vw * 0.5625);
+  }
 }

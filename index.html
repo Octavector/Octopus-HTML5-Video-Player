@@ -3,14 +3,34 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Octopus HTML5 Video Player</title>
     <link rel="stylesheet" href="style.min.css">
 </head>
 
 <body>
-    <div class="octopusVideo">
-    <video src="http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4"></video>
+    <div class="octopus_video">
+        <video src="http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_30fps_normal.mp4" preload="none">HTML5 video not supported</video>
+        <!-- Would be better accessibility to use <progress> element but for experiment sake will try a complete custom approach -->
+        <div class="octopus_controls">
+            <div class="octopus_btn">
+
+            </div>
+            <div class="octopus_current">
+
+            </div>
+            <div class="octopus_timeline">
+                <div class="octopus_progress">
+
+                </div>
+            </div>
+            <div class="octopus_duration">
+                
+            </div>
+        </div>
     </div>
 </body>
+
+<style src="octopus.js"></style>
 
 </html>
