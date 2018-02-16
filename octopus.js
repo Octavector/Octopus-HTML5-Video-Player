@@ -4,11 +4,19 @@
     const stat = { playing: 0, current: 0 };
 
     const handler_stat = {
-        get(target, propKey, receiver) {
+        get: function(target, propKey) {
+            //get trap
             console.log('get ' + propKey);
+            console.log(`GET: target: ${target} - propKey: ${propKey}`);
+            return Reflect.get(target, propKey);
+        },
+        set: function(target, propKey, value) {
+            //set trap
+            console.log('set ' + propKey);
+            console.log(`SET: target: ${target} - propKey: ${propKey} - value: ${value}`);
+            Reflect.set(target, propKey, value);
         }
     };
-    
     //creating a proxy of stat to intercept requests for properties
     const proxy_stat = new Proxy(stat, handler_stat);
 
@@ -18,8 +26,8 @@
     const progress = document.querySelector('.octopus_progress');
 
     //event listeners
-    vid.addEventListener('playing', (e) => { stat.playing = 1; });
-    vid.addEventListener('pause', (e) => { stat.playing = 0; });
+    vid.addEventListener('playing', (e) => { proxy_stat.playing = 1; });
+    vid.addEventListener('pause', (e) => { proxy_stat.playing = 0; });
     playBtn.addEventListener('click', playVid);
     timeline.addEventListener('click', track);
 
@@ -59,8 +67,8 @@
 
     //requestAnimationFrame for animation rendering of progress bar
     function render() {
-        if (stat.playing === 1) {
-            stat.current = vid.currentTime;
+        if (proxy_stat.playing === 1) {
+            proxy_stat.current = vid.currentTime;
             console.log(Math.trunc(vid.currentTime));
             progress.style.width = `${getPercent(vid.currentTime, vid.duration)}%`
         }
