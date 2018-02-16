@@ -6,8 +6,8 @@
     const handler_stat = {
         get: function(target, propKey) {
             //get trap
-            console.log('get ' + propKey);
-            console.log(`GET: target: ${target} - propKey: ${propKey}`);
+           // console.log('get ' + propKey);
+           // console.log(`GET: target: ${target} - propKey: ${propKey}`);
             return Reflect.get(target, propKey);
         },
         set: function(target, propKey, value) {
@@ -55,7 +55,10 @@
         // match this to currentTime vs duration
         progress.style.width = `${getPercent(offsetX, rect.width)}%`
         console.log('percent ' + getPercent(offsetX, rect.width));
-        console.log('runtime: ' + percentOff(getPercent(offsetX, rect.width), vid.duration));
+        let newRuntime = percentOff(getPercent(offsetX, rect.width), vid.duration);
+        console.log('runtime: ' + newRuntime);
+        //jump to new location in video
+        vid.currentTime = newRuntime;
     }
 
     function playVid() {
@@ -69,7 +72,7 @@
     function render() {
         if (proxy_stat.playing === 1) {
             proxy_stat.current = vid.currentTime;
-            console.log(Math.trunc(vid.currentTime));
+            //console.log(Math.trunc(vid.currentTime));
             progress.style.width = `${getPercent(vid.currentTime, vid.duration)}%`
         }
         requestAnimationFrame(render);

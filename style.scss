@@ -64,6 +64,7 @@ body{
     .octopus_progress{
         background:red;
         height:100%;
+        pointer-events: none;
     }
     .octopus_duration{
         color:white;

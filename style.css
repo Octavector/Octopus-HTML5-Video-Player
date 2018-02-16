@@ -63,6 +63,7 @@ body {
 .octopus_controls .octopus_progress {
   background: red;
   height: 100%;
+  pointer-events: none;
 }
 
 .octopus_controls .octopus_duration {
