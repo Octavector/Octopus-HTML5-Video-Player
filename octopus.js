@@ -48,10 +48,7 @@ window.addEventListener("load", function(e){
     function convertToMinutes(total){
         let minutes = Math.floor(total / 60);
         let seconds = Math.floor(total - minutes * 60);
-
-        //.padStart(2, "0")
-
-        return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+        return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
     }
 
     duration.textContent = convertToMinutes(vid.duration);
@@ -59,7 +56,8 @@ window.addEventListener("load", function(e){
     //returns the percentage difference between 'num1' and 'num2'
     function getPercent(num1, num2) {
         let decimal = num1 / num2;
-        return Math.ceil(decimal * 100);
+        //return Math.ceil(decimal * 100);
+        return decimal * 100;
     }
 
     //returns decimal thats 'percent' of 'target'
