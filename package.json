@@ -1,0 +1,27 @@
+{
+  "name": "octopus-html5-video-player",
+  "version": "1.0.0",
+  "description": "A JavaScript video player for HTML5 video",
+  "main": "octopus.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Octavector/Octopus-HTML5-Video-Player.git"
+  },
+  "keywords": [
+    "html5",
+    "video"
+  ],
+  "author": "Octavector",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/Octavector/Octopus-HTML5-Video-Player/issues"
+  },
+  "homepage": "https://github.com/Octavector/Octopus-HTML5-Video-Player#readme",
+  "devDependencies": {
+    "jsdom": "11.6.2",
+    "jsdom-global": "3.0.2"
+  }
+}

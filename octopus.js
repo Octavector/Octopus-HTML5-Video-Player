@@ -1,3 +1,18 @@
+//octopus object is exposed in global space for Mocha testing, normally would be wrapped in IIFE
+const octopus = {};
+
+//returns the percentage difference between 'num1' and 'num2'
+octopus.getPercent = function (num1, num2) {
+    let decimal = num1 / num2;
+    return decimal * 100;
+}
+
+//returns decimal thats 'percent' of 'target'
+octopus.percentOff = function (percent, target) {
+    let decimal = parseFloat(percent) / 100.0;
+    return decimal * target;
+}
+
 window.addEventListener("load", function (e) {
 
     const stat = { playing: 0, current: 0 };
@@ -44,19 +59,6 @@ window.addEventListener("load", function (e) {
         return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
     }
 
-    //returns the percentage difference between 'num1' and 'num2'
-    function getPercent(num1, num2) {
-        let decimal = num1 / num2;
-        //return Math.ceil(decimal * 100);
-        return decimal * 100;
-    }
-
-    //returns decimal thats 'percent' of 'target'
-    function percentOff(percent, target) {
-        let decimal = parseFloat(percent) / 100.0;
-        return decimal * target;
-    }
-
     //track function manages clicks on timeline
     function track(e) {
         const target = e.target;
@@ -65,8 +67,8 @@ window.addEventListener("load", function (e) {
 
         // get percentage of offsetX to line width
         // match this to currentTime vs duration
-        progress.style.width = `${getPercent(offsetX, rect.width)}%`
-        let newRuntime = percentOff(getPercent(offsetX, rect.width), vid.duration);
+        progress.style.width = `${octopus.getPercent(offsetX, rect.width)}%`
+        let newRuntime = octopus.percentOff(octopus.getPercent(offsetX, rect.width), vid.duration);
         //jump to new location in video
         vid.currentTime = newRuntime;
         //proxy_stat.current = newRuntime;
@@ -92,8 +94,11 @@ window.addEventListener("load", function (e) {
             proxy_stat.current = vid.currentTime;
             current.textContent = convertToMinutes(vid.currentTime);
             //console.log(Math.trunc(vid.currentTime));
-            progress.style.width = `${getPercent(vid.currentTime, vid.duration)}%`
+            progress.style.width = `${octopus.getPercent(vid.currentTime, vid.duration)}%`
         }
         requestAnimationFrame(render);
     }
 });
+
+//Uncomment below to run Mocha tests (requires jsdom-global)
+//module.exports = octopus;
