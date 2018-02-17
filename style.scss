@@ -27,6 +27,10 @@ body{
     border:1px solid $col_brand;
     box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
     position: relative;
+    video{
+        // Chroe requires width set
+        width: 100%;
+    }
 }
 
 .octopus_controls{
@@ -41,6 +45,19 @@ body{
         display: flex;
         justify-content: center;
         align-items: center;
+        
+        .btnPlayPause{
+            background-image: url(img/btn_play.svg);
+            font-size: 0;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            height: 68%;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
     }
     .octopus_current{
         color:white;

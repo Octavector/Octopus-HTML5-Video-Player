@@ -1,20 +1,20 @@
 window.addEventListener("load", function(e){
 
     //TODO
-    // - Update currenttime when timeline is clicked
-    // - padstart and padend to time formatting
+   
 
     //collect elements
     //proxy this for access hooks?
     const stat = { playing: 0, current: 0 };
 
 
-
+    //the hadler for our proxy allows us to hook onto 'get' and 'set' requests
     const handler_stat = {
         get: function(target, propKey) {
             //get trap
-           // console.log('get ' + propKey);
+            console.log('get ' + propKey);
            // console.log(`GET: target: ${target} - propKey: ${propKey}`);
+           current.textContent = convertToMinutes(vid.currentTime);
             return Reflect.get(target, propKey);
         },
         set: function(target, propKey, value) {
@@ -30,15 +30,20 @@ window.addEventListener("load", function(e){
     const proxy_stat = new Proxy(stat, handler_stat);
 
     const vid = document.querySelector('.octopus_video video');
-    const playBtn = document.querySelector('.octopus_btn .btnPlayPause');
+    var playBtn = document.querySelector('.octopus_btn .btnPlayPause');
     const timeline = document.querySelector('.octopus_timeline');
     const progress = document.querySelector('.octopus_progress');
     const current = document.querySelector('.octopus_current');
     const duration = document.querySelector('.octopus_duration');
+    
 
     //event listeners
     vid.addEventListener('playing', (e) => { proxy_stat.playing = 1; });
     vid.addEventListener('pause', (e) => { proxy_stat.playing = 0; });
+    //Required for Chrome
+    vid.addEventListener('loadedmetadata',(e) => {
+        duration.textContent = convertToMinutes(vid.duration);
+    });
 
 
     playBtn.addEventListener('click', playVid);
@@ -51,7 +56,7 @@ window.addEventListener("load", function(e){
         return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
     }
 
-    duration.textContent = convertToMinutes(vid.duration);
+    
 
     //returns the percentage difference between 'num1' and 'num2'
     function getPercent(num1, num2) {
@@ -85,8 +90,11 @@ window.addEventListener("load", function(e){
         //proxy_stat.current = newRuntime;
     }
 
+
     function playVid() {
         vid.play();
+        playBtn.style.backgroundImage = "url('btn_pause.svg')";
+       
     }
 
     render();
