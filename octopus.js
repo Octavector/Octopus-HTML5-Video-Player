@@ -40,8 +40,9 @@ window.addEventListener("load", function(e){
     //event listeners
     vid.addEventListener('playing', (e) => { proxy_stat.playing = 1; });
     vid.addEventListener('pause', (e) => { proxy_stat.playing = 0; });
-    //Required for Chrome
-    vid.addEventListener('loadedmetadata',(e) => {
+    //Chrome requires 'loadeddata', Firefox does not
+    //If we cant grab vid.duration on load then we wait for 'loadeddata' event (chrome)
+    vid.duration ? duration.textContent = convertToMinutes(vid.duration) : vid.addEventListener('loadeddata',(e) => {
         duration.textContent = convertToMinutes(vid.duration);
     });
 
@@ -91,14 +92,19 @@ window.addEventListener("load", function(e){
     }
 
 
+    //toggle play and pause functionality and btn image
     function playVid() {
-        vid.play();
-        playBtn.style.backgroundImage = "url('btn_pause.svg')";
-       
+        if(proxy_stat.playing !== 1){
+            vid.play();
+            playBtn.style.backgroundImage = "url('img/btn_pause.svg')";
+        }else{
+            vid.pause();
+            playBtn.style.backgroundImage = "url('img/btn_play.svg')";
+        } 
     }
 
+    //begin animation loop
     render();
-
 
     //requestAnimationFrame for animation rendering of progress bar
     function render() {
