@@ -87,6 +87,7 @@ body {
 .octopus_controls .octopus_progress {
   background: #e50000;
   height: 100%;
+  width: 0;
   pointer-events: none;
   mix-blend-mode: screen;
   border-right: 3px yellow solid;

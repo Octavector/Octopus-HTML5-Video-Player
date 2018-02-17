@@ -1,12 +1,6 @@
 window.addEventListener("load", function(e){
 
-    //TODO
-   
-
-    //collect elements
-    //proxy this for access hooks?
     const stat = { playing: 0, current: 0 };
-
 
     //the hadler for our proxy allows us to hook onto 'get' and 'set' requests
     const handler_stat = {
