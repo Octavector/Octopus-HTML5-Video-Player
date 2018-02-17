@@ -57,6 +57,12 @@ body{
             background-color: transparent;
             border: none;
             cursor: pointer;
+            transition:0.2s all;
+            opacity:0.8;
+            &:hover{
+                transform: scale(1.2);
+                opacity:1;
+            }
         }
     }
     .octopus_current{
@@ -79,9 +85,11 @@ body{
         height: 1rem;
     }
     .octopus_progress{
-        background:red;
+        background:$col_brand;
         height:100%;
         pointer-events: none;
+        mix-blend-mode: screen;
+        border-right: 3px yellow solid;
     }
     .octopus_duration{
         color:white;
