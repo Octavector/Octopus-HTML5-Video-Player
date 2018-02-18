@@ -13,12 +13,12 @@ octopus.percentOff = function (percent, target) {
     return decimal * target;
 }
 
-    //convert video duration in seconds 'total' to minutes and seconds, add to UI
-    octopus.convertToMinutes = function(total) {
-        let minutes = Math.floor(total / 60);
-        let seconds = Math.floor(total - minutes * 60);
-        return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-    }
+//convert video duration in seconds 'total' to minutes and seconds, add to UI
+octopus.convertToMinutes = function (total) {
+    let minutes = Math.floor(total / 60);
+    let seconds = Math.floor(total - minutes * 60);
+    return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+}
 
 window.addEventListener("load", function (e) {
 
