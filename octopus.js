@@ -13,6 +13,13 @@ octopus.percentOff = function (percent, target) {
     return decimal * target;
 }
 
+    //convert video duration in seconds 'total' to minutes and seconds, add to UI
+    octopus.convertToMinutes = function(total) {
+        let minutes = Math.floor(total / 60);
+        let seconds = Math.floor(total - minutes * 60);
+        return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    }
+
 window.addEventListener("load", function (e) {
 
     const stat = { playing: 0, current: 0 };
@@ -21,7 +28,7 @@ window.addEventListener("load", function (e) {
     const handler_stat = {
         get: function (target, propKey) {
             //get trap
-            current.textContent = convertToMinutes(vid.currentTime);
+            current.textContent = octopus.convertToMinutes(vid.currentTime);
             return Reflect.get(target, propKey);
         },
         set: function (target, propKey, value) {
@@ -45,19 +52,12 @@ window.addEventListener("load", function (e) {
     vid.addEventListener('pause', (e) => { proxy_stat.playing = 0; });
     //Chrome requires 'loadeddata', Firefox does not
     //If we cant grab vid.duration on load then we wait for 'loadeddata' event (chrome)
-    vid.duration ? duration.textContent = convertToMinutes(vid.duration) : vid.addEventListener('loadeddata', (e) => {
-        duration.textContent = convertToMinutes(vid.duration);
+    vid.duration ? duration.textContent = octopus.convertToMinutes(vid.duration) : vid.addEventListener('loadeddata', (e) => {
+        duration.textContent = octopus.convertToMinutes(vid.duration);
     });
 
     playBtn.addEventListener('click', playVid);
     timeline.addEventListener('click', track);
-
-    //convert video duration in seconds 'total' to minutes and seconds, add to UI
-    function convertToMinutes(total) {
-        let minutes = Math.floor(total / 60);
-        let seconds = Math.floor(total - minutes * 60);
-        return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-    }
 
     //track function manages clicks on timeline
     function track(e) {
@@ -66,12 +66,10 @@ window.addEventListener("load", function (e) {
             [offsetX, offsetY] = [e.clientX - rect.left, e.clientY - rect.top];
 
         // get percentage of offsetX to line width
-        // match this to currentTime vs duration
         progress.style.width = `${octopus.getPercent(offsetX, rect.width)}%`
         let newRuntime = octopus.percentOff(octopus.getPercent(offsetX, rect.width), vid.duration);
         //jump to new location in video
         vid.currentTime = newRuntime;
-        //proxy_stat.current = newRuntime;
     }
 
     //toggle play and pause functionality and btn image
@@ -92,8 +90,7 @@ window.addEventListener("load", function (e) {
     function render() {
         if (proxy_stat.playing === 1) {
             proxy_stat.current = vid.currentTime;
-            current.textContent = convertToMinutes(vid.currentTime);
-            //console.log(Math.trunc(vid.currentTime));
+            current.textContent = octopus.convertToMinutes(vid.currentTime);
             progress.style.width = `${octopus.getPercent(vid.currentTime, vid.duration)}%`
         }
         requestAnimationFrame(render);

@@ -20,5 +20,13 @@ describe('Octopus Video Player', function() {
           assert.equal(0.22524, octopus.percentOff(12,1.877));
         });
       });
+      describe('convertToMinutes | Convert video duration in seconds \'total\' to minutes and seconds', function() {
+        it('TEST: 1' , function() {
+          assert.equal('25:46', octopus.convertToMinutes(1546));
+        });
+        it('TEST: 2', function() {
+          assert.equal('08:08', octopus.convertToMinutes(488));
+        });
+      });
 });
 
