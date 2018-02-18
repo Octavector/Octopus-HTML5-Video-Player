@@ -5,14 +5,15 @@ A custom JavaScript video player for HTML5 video
 
 View a [live demo](https://ingrid.guide/octopus-demo/).
 
-##Tested on
+## Tested on
 Windows, Firefox
 Windows, Chrome
 Android, Firefox
 Android, Chrome
 
-##Mocha Test Results
- Octopus Video Player
+## Mocha Test Results
+
+Octopus Video Player
     getPercent | Returns the percentage difference between 'num1' and 'num2'
       ✔️ **TEST: 1**
       ✔️ **TEST: 2**
