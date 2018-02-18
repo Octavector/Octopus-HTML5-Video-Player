@@ -72,7 +72,7 @@ body {
 }
 
 .octopus_controls .octopus_timelineContainer {
-  flex: 8;
+  flex: 3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,6 +100,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (min-width: 600px) {
+  .octopus_controls .octopus_timelineContainer {
+    flex: 8;
+  }
 }
 
 @media (min-width: 992px) {

@@ -74,7 +74,7 @@ body{
         align-items: center;
     }
     .octopus_timelineContainer{
-        flex:8;
+        flex:3;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -102,7 +102,15 @@ body{
     }
 }
 
-//Media Queries to chnage size of video player between mobile > desktop
+//Media Queries to change size of video player between mobile > desktop
+@media (min-width: 600px) {
+    .octopus_controls{
+        .octopus_timelineContainer{
+            flex:8;
+        }
+    }
+}
+
 @media (min-width: 992px) {
     .octopus_video{
         width: 60vw;
